@@ -1,52 +1,41 @@
-// index.js
+// app.js
 
-// request message on server
-//Calls SimpleServlet to get the "Hello World" message
-xhrGet("SimpleServlet", function(responseText){
-	// add to document
-	var mytitle = document.getElementById('message');
-	mytitle.innerHTML = responseText;
 
-}, function(err){
-	console.log(err);
-});
+var btn = document.getElementById('btn');
+var content = document.getElementById('content');
 
-//utilities
-function createXHR(){
-	if(typeof XMLHttpRequest != 'undefined'){
-		return new XMLHttpRequest();
-	}else{
-		try{
-			return new ActiveXObject('Msxml2.XMLHTTP');
-		}catch(e){
-			try{
-				return new ActiveXObject('Microsoft.XMLHTTP');
-			}catch(e){}
-		}
-	}
-	return null;
-}
-function xhrGet(url, callback, errback){
-	var xhr = new createXHR();
-	xhr.open("GET", url, true);
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4){
-			if(xhr.status == 200){
-				callback(xhr.responseText);
-			}else{
-				errback('service not available');
-			}
-		}
-	};
-	xhr.timeout = 3000;
-	xhr.ontimeout = errback;
-	xhr.send();
-}
-function parseJson(str){
-	return window.JSON ? JSON.parse(str) : eval('(' + str + ')');
-}
-function prettyJson(str){
-	// If browser does not have JSON utilities, just print the raw string value.
-	return window.JSON ? JSON.stringify(JSON.parse(str), null, '  ') : str;
-}
 
+
+
+//音声認識APIの使用
+var speech = new webkitSpeechRecognition();
+
+
+//言語を日本語に設定
+speech.lang = "ja";
+
+
+
+
+btn.addEventListener( 'click' , function() {
+
+
+    // ?ボタンをクリックした時の処理
+    // 音声認識をスタート
+    speech.start();
+
+} );
+
+
+
+
+speech.addEventListener( 'result' , function( e ) {
+
+
+    // ?音声認識した結果を得る処理
+    var text = e.results[0][0].transcript;
+
+    // 認識された「言葉(text)」を、表示用のdivタグに代入する
+    content.textContent = text;
+
+} );
