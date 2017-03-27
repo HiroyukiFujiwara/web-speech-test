@@ -19,23 +19,17 @@ speech.lang = "ja";
 
 btn.addEventListener( 'click' , function() {
 
-
-    // ?ボタンをクリックした時の処理
-    // 音声認識をスタート
+    //ボタンをクリックした時の処理
+    //音声認識をスタート
     speech.start();
 
 } );
 
-
-
-
 speech.addEventListener( 'result' , function( e ) {
 
-
-    // ?音声認識した結果を得る処理
+    //音声認識した結果を得る処理
     var text = e.results[0][0].transcript;
-
-    // 認識された「言葉(text)」を、表示用のdivタグに代入する
+    //認識された「言葉(text)」を、表示用のdivタグに代入する
     content.textContent = text;
 
 } );
