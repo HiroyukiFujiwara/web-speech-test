@@ -107,5 +107,5 @@ function getEventData() {
 //テキスト表示 
 function getTextContents(text) { 
   content.innerHTML = '<p>認識された言葉</p>' + 
-                   '<input type="text" value="' + text + '">'; 
+  　　　　　　　　　'<textarea name="example4" cols="30" rows="5" readonly>' + text +'</textarea>'; 
 } 
